@@ -19,6 +19,14 @@ class RayTracer(object):
         self.currentColor = (1, 1, 1)
         self.rtClear()
 
+        self.vpX = 0
+        self.vpY = 0
+        self.vpWidth = 0
+        self.vpHeight = 0
+        self.nearPlane = 0
+        self.topEdge = 0
+        self.rightEdge = 0
+
     def rtViewPort(self, x, y, width, height):
         self.vpX = x
         self.vpY = y
