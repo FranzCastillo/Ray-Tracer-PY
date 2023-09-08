@@ -17,6 +17,7 @@ class Directional(Light.Light):
 
         intensity = np.dot(intercept.normal, direction) * self.intensity
         intensity = max(0, min(1, intensity))
+        intensity *= 1 - intercept.obj.material.ks
 
         return [i * intensity for i in self.color]
 
@@ -30,5 +31,6 @@ class Directional(Light.Light):
 
         intensity = max(0, min(1, np.dot(reflectDirection, viewDirection))) ** intercept.obj.material.spec
         intensity *= self.intensity
+        intensity *= intercept.obj.material.ks
 
         return [i * intensity for i in self.color]
