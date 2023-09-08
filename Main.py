@@ -5,7 +5,7 @@ from Shapes.Sphere import Sphere
 from Lights.Ambient import Ambient as AmbientLight
 from Lights.Directional import Directional as DirectionalLight
 from RayTracer import RayTracer
-from Materials.Material import Material
+import Materials.Material as Material
 
 width = 200
 height = 200
@@ -19,18 +19,14 @@ rayTracer = RayTracer(screen)
 rayTracer.rtClearColor(0, 0, 0)
 rayTracer.rtColor(1, 1, 1)
 
-brickMaterial = Material(diffuse=(1, 0.3, 0.2), albedo=(0.3, 0.3, 0.3), spec=8)
-grassMaterial = Material(diffuse=(0.2, 0.8, 0.2), albedo=(0.3, 0.3, 0.3), spec=32)
-waterMaterial = Material(diffuse=(0.2, 0.2, 0.8), albedo=(0.3, 0.3, 0.3), spec=256)
-
 rayTracer.scene.append(
-    Sphere(position=(-2, 0, -5), radius=0.5, material=brickMaterial)
+    Sphere(position=(-2, 0, -5), radius=0.5, material=Material.brick())
 )
 rayTracer.scene.append(
-    Sphere(position=(0, 0, -5), radius=0.5, material=grassMaterial)
+    Sphere(position=(0, 0, -5), radius=0.5, material=Material.grass())
 )
 rayTracer.scene.append(
-    Sphere(position=(2, 0, -5), radius=0.5, material=waterMaterial)
+    Sphere(position=(2, 0, -5), radius=0.5, material=Material.water())
 )
 
 rayTracer.lights.append(
