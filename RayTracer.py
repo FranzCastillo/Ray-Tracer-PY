@@ -5,20 +5,6 @@ import numpy as np
 
 class RayTracer(object):
     def __init__(self, screen):
-        self.screen = screen
-        _, _, self.width, self.height = screen.get_rect()
-
-        self.scene = []
-
-        self.cameraPosition = [0, 0, 0]
-
-        self.rtViewPort(0, 0, self.width, self.height)
-        self.rtProjection()
-
-        self.clearColor = (0, 0, 0)
-        self.currentColor = (1, 1, 1)
-        self.rtClear()
-
         self.vpX = 0
         self.vpY = 0
         self.vpWidth = 0
@@ -26,6 +12,23 @@ class RayTracer(object):
         self.nearPlane = 0
         self.topEdge = 0
         self.rightEdge = 0
+        self.clearColor = None
+        self.currentColor = None
+
+        self.screen = screen
+        _, _, self.width, self.height = screen.get_rect()
+
+        self.scene = []
+        self.lights = []
+
+        self.cameraPosition = [0, 0, 0]
+
+        self.rtViewPort(0, 0, self.width, self.height)
+        self.rtProjection()
+
+        self.rtClearColor(0, 0, 0)
+        self.rtColor(1, 1, 1)
+        self.rtClear()
 
     def rtViewPort(self, x, y, width, height):
         self.vpX = x
@@ -49,7 +52,7 @@ class RayTracer(object):
         self.screen.fill(self.clearColor)
 
     def rtPoint(self, x, y, color=None):
-        y = self.height - y
+        y = self.width - y
         if (0 <= x < self.width) and (0 <= y < self.height):
             if color is None:
                 color = self.currentColor
@@ -59,11 +62,14 @@ class RayTracer(object):
             self.screen.set_at((x, y), color)
 
     def rtCastRay(self, origin, direction):
-        for obj in self.scene:
-            if obj.intersect(origin, direction):
-                return True
+        hit = None
 
-        return False
+        for obj in self.scene:
+            intercept = obj.intersect(origin, direction)
+            if intercept is not None:
+                hit = intercept
+
+        return hit
 
     def rtRender(self):
         for x in range(self.vpX, self.vpX + self.vpWidth + 1):
@@ -78,5 +84,36 @@ class RayTracer(object):
                     direction = (pX, pY, -self.nearPlane)
                     direction = direction / np.linalg.norm(direction)
 
-                    if self.rtCastRay(self.cameraPosition, direction):
-                        self.rtPoint(x, y)
+                    intercept = self.rtCastRay(self.cameraPosition, direction)
+                    if intercept is not None:
+                        objMaterial = intercept.obj.material
+                        pixelColor = list(objMaterial.diffuse)
+
+                        ambientLight = [0, 0, 0]
+                        directionalLight = [0, 0, 0]
+
+                        for light in self.lights:
+                            if light.type == "AMBIENT":
+                                ambientLight[0] += light.intensity * light.color[0]
+                                ambientLight[1] += light.intensity * light.color[1]
+                                ambientLight[2] += light.intensity * light.color[2]
+                            elif light.type == "DIRECTIONAL":
+                                lightDir = np.array(light.direction) * -1
+                                lightDir = lightDir / np.linalg.norm(lightDir)
+                                intensity = np.dot(intercept.normal, lightDir)
+                                intensity = max(0, min(1, intensity))
+
+                                directionalLight[0] += light.intensity * light.color[0] * intensity
+                                directionalLight[1] += light.intensity * light.color[1] * intensity
+                                directionalLight[2] += light.intensity * light.color[2] * intensity
+
+                        pixelColor[0] *= ambientLight[0] + directionalLight[0]
+                        pixelColor[1] *= ambientLight[1] + directionalLight[1]
+                        pixelColor[2] *= ambientLight[2] + directionalLight[2]
+
+                        pixelColor[0] = min(1, pixelColor[0])
+                        pixelColor[1] = min(1, pixelColor[1])
+                        pixelColor[2] = min(1, pixelColor[2])
+
+                        self.rtPoint(x, y, pixelColor)
+

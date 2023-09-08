@@ -1,11 +1,11 @@
 import numpy as np
 from Shapes.Shape import Shape
+from Shapes.Intercept import Intercept
 
 
 class Sphere(Shape):
-    def __init__(self, position, radius):
-        super().__init__(position)
-
+    def __init__(self, position, radius, material):
+        super().__init__(position, material)
         self.radius = radius
 
     def intersect(self, origin, direction):
@@ -15,7 +15,7 @@ class Sphere(Shape):
         d = (lengthL ** 2 - tca ** 2) ** 0.5
 
         if d > self.radius:
-            return False
+            return None
 
         thc = (self.radius ** 2 - d ** 2) ** 0.5
         t0 = tca - thc
@@ -25,6 +25,13 @@ class Sphere(Shape):
             t0 = t1
 
         if t0 < 0:
-            return False
+            return None
 
-        return True
+        point = np.add(origin, np.multiply(t0, direction))
+        normal = np.subtract(point, self.position)
+        normal = normal / np.linalg.norm(normal)
+
+        return Intercept(distance=t0,
+                         point=point,
+                         normal=normal,
+                         obj=self)
