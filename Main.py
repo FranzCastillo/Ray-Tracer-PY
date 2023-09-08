@@ -7,8 +7,8 @@ from Lights.Directional import Directional as DirectionalLight
 from RayTracer import RayTracer
 from Materials.Material import Material
 
-width = 512
-height = 512
+width = 200
+height = 200
 
 pygame.init()
 
@@ -19,16 +19,25 @@ rayTracer = RayTracer(screen)
 rayTracer.rtClearColor(0, 0, 0)
 rayTracer.rtColor(1, 1, 1)
 
-brickMaterial = Material(diffuse=(1, 0.3, 0.2), albedo=(0.3, 0.3, 0.3), spec=50)
+brickMaterial = Material(diffuse=(1, 0.3, 0.2), albedo=(0.3, 0.3, 0.3), spec=8)
+grassMaterial = Material(diffuse=(0.2, 0.8, 0.2), albedo=(0.3, 0.3, 0.3), spec=32)
+waterMaterial = Material(diffuse=(0.2, 0.2, 0.8), albedo=(0.3, 0.3, 0.3), spec=256)
 
 rayTracer.scene.append(
-    Sphere(position=(0, 0, -5), radius=1, material=brickMaterial),
+    Sphere(position=(-2, 0, -5), radius=0.5, material=brickMaterial)
 )
+rayTracer.scene.append(
+    Sphere(position=(0, 0, -5), radius=0.5, material=grassMaterial)
+)
+rayTracer.scene.append(
+    Sphere(position=(2, 0, -5), radius=0.5, material=waterMaterial)
+)
+
 rayTracer.lights.append(
     AmbientLight(intensity=0.1)
 )
 rayTracer.lights.append(
-    DirectionalLight(direction=(0, -1, -1), intensity=0.7)
+    DirectionalLight(direction=(-1, -1, -1), intensity=0.7)
 )
 
 isRunning = True

@@ -86,34 +86,26 @@ class RayTracer(object):
 
                     intercept = self.rtCastRay(self.cameraPosition, direction)
                     if intercept is not None:
-                        objMaterial = intercept.obj.material
-                        pixelColor = list(objMaterial.diffuse)
-
-                        ambientLight = [0, 0, 0]
-                        directionalLight = [0, 0, 0]
+                        surfaceColor = intercept.obj.material.diffuse
+                        ambientLightColor = [0, 0, 0]
+                        diffuseLightColor = [0, 0, 0]
+                        specularLightColor = [0, 0, 0]
 
                         for light in self.lights:
                             if light.type == "AMBIENT":
-                                ambientLight[0] += light.intensity * light.color[0]
-                                ambientLight[1] += light.intensity * light.color[1]
-                                ambientLight[2] += light.intensity * light.color[2]
-                            elif light.type == "DIRECTIONAL":
-                                lightDir = np.array(light.direction) * -1
-                                lightDir = lightDir / np.linalg.norm(lightDir)
-                                intensity = np.dot(intercept.normal, lightDir)
-                                intensity = max(0, min(1, intensity))
+                                color = light.getColor()
+                                ambientLightColor = [ambientLightColor[i] + color[i] for i in range(3)]
+                            else:
+                                diffColor = light.getDiffuseColor(intercept)
+                                diffuseLightColor = [diffuseLightColor[i] + diffColor[i] for i in range(3)]
 
-                                directionalLight[0] += light.intensity * light.color[0] * intensity
-                                directionalLight[1] += light.intensity * light.color[1] * intensity
-                                directionalLight[2] += light.intensity * light.color[2] * intensity
+                                specColor = light.getSpecularColor(intercept, self.cameraPosition)
+                                specularLightColor = [specularLightColor[i] + specColor[i] for i in range(3)]
 
-                        pixelColor[0] *= ambientLight[0] + directionalLight[0]
-                        pixelColor[1] *= ambientLight[1] + directionalLight[1]
-                        pixelColor[2] *= ambientLight[2] + directionalLight[2]
+                        lightColor = [ambientLightColor[i] + diffuseLightColor[i] + specularLightColor[i]
+                                      for i in range(3)]
 
-                        pixelColor[0] = min(1, pixelColor[0])
-                        pixelColor[1] = min(1, pixelColor[1])
-                        pixelColor[2] = min(1, pixelColor[2])
+                        finalColor = [surfaceColor[i] * lightColor[i] for i in range(3)]
+                        finalColor = [min(1, i) for i in finalColor]
 
-                        self.rtPoint(x, y, pixelColor)
-
+                        self.rtPoint(x, y, finalColor)
