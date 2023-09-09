@@ -4,6 +4,7 @@ from pygame.locals import *
 from Shapes.Sphere import Sphere
 from Lights.Ambient import Ambient as AmbientLight
 from Lights.Directional import Directional as DirectionalLight
+from Lights.Point import Point as PointLight
 from RayTracer import RayTracer
 import Materials.Material as Material
 
@@ -16,7 +17,7 @@ screen = pygame.display.set_mode((width, height), pygame.DOUBLEBUF | pygame.HWAC
 screen.set_alpha(None)
 
 rayTracer = RayTracer(screen)
-rayTracer.rtClearColor(0.20, 0.20, 0.20)
+rayTracer.rtClearColor(0, 0, 0)
 rayTracer.rtColor(1, 1, 1)
 
 rayTracer.scene.append(
@@ -30,13 +31,13 @@ rayTracer.scene.append(
 )
 
 rayTracer.lights.append(
-    AmbientLight(intensity=0.1)
+    AmbientLight(intensity=0)
 )
 rayTracer.lights.append(
     DirectionalLight(direction=(-1, -1, -1), intensity=0.3)
 )
 rayTracer.lights.append(
-    DirectionalLight(direction=(0, -2, -1), intensity=1, color=(1, 0, 1))
+    PointLight(position=(2.5, 0, -5), intensity=0.5, color=(1, 0, 1))
 )
 
 isRunning = True

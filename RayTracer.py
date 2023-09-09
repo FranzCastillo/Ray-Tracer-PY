@@ -100,10 +100,14 @@ class RayTracer(object):
                                 color = light.getColor()
                                 ambientLightColor = [ambientLightColor[i] + color[i] for i in range(3)]
                             else:
-                                shadowIntersect = None
+                                shadowDirection = None
                                 if light.type == "DIRECTIONAL":
                                     shadowDirection = [i * -1 for i in light.direction]
-                                    shadowIntersect = self.rtCastRay(intercept.point, shadowDirection, intercept.obj)
+                                if light.type == "POINT":
+                                    lightDirection = np.subtract(light.position, intercept.point)
+                                    shadowDirection = lightDirection / np.linalg.norm(lightDirection)
+
+                                shadowIntersect = self.rtCastRay(intercept.point, shadowDirection, intercept.obj)
 
                                 if shadowIntersect is None:
                                     diffColor = light.getDiffuseColor(intercept)
