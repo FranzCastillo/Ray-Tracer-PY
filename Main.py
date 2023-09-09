@@ -20,20 +20,23 @@ rayTracer.rtClearColor(0.20, 0.20, 0.20)
 rayTracer.rtColor(1, 1, 1)
 
 rayTracer.scene.append(
-    Sphere(position=(0, 0, -5), radius=1, material=Material.grass())
+    Sphere(position=(1, 1, -5), radius=0.5, material=Material.grass())
 )
-# rayTracer.scene.append(
-#     Sphere(position=(0, 0, -5), radius=0.5, material=Material.grass())
-# )
-# rayTracer.scene.append(
-#     Sphere(position=(2, 0, -5), radius=0.5, material=Material.water())
-# )
+rayTracer.scene.append(
+    Sphere(position=(0, 0, -7), radius=2, material=Material.brick())
+)
+rayTracer.scene.append(
+    Sphere(position=(-1, 0, -4), radius=0.3, material=Material.water())
+)
 
 rayTracer.lights.append(
     AmbientLight(intensity=0.1)
 )
 rayTracer.lights.append(
-    DirectionalLight(direction=(-1, -1, -1), intensity=0.7)
+    DirectionalLight(direction=(-1, -1, -1), intensity=0.3)
+)
+rayTracer.lights.append(
+    DirectionalLight(direction=(0, -2, -1), intensity=1, color=(1, 0, 1))
 )
 
 isRunning = True

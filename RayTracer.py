@@ -61,13 +61,17 @@ class RayTracer(object):
 
             self.screen.set_at((x, y), color)
 
-    def rtCastRay(self, origin, direction):
+    def rtCastRay(self, origin, direction, sceneObject=None):
+        depth = float("inf")
         hit = None
 
         for obj in self.scene:
-            intercept = obj.intersect(origin, direction)
-            if intercept is not None:
-                hit = intercept
+            if obj is not sceneObject:
+                intercept = obj.intersect(origin, direction)
+                if intercept is not None:
+                    if intercept.distance < depth:
+                        depth = intercept.distance
+                        hit = intercept
 
         return hit
 
@@ -96,11 +100,17 @@ class RayTracer(object):
                                 color = light.getColor()
                                 ambientLightColor = [ambientLightColor[i] + color[i] for i in range(3)]
                             else:
-                                diffColor = light.getDiffuseColor(intercept)
-                                diffuseLightColor = [diffuseLightColor[i] + diffColor[i] for i in range(3)]
+                                shadowIntersect = None
+                                if light.type == "DIRECTIONAL":
+                                    shadowDirection = [i * -1 for i in light.direction]
+                                    shadowIntersect = self.rtCastRay(intercept.point, shadowDirection, intercept.obj)
 
-                                specColor = light.getSpecularColor(intercept, self.cameraPosition)
-                                specularLightColor = [specularLightColor[i] + specColor[i] for i in range(3)]
+                                if shadowIntersect is None:
+                                    diffColor = light.getDiffuseColor(intercept)
+                                    diffuseLightColor = [diffuseLightColor[i] + diffColor[i] for i in range(3)]
+
+                                    specColor = light.getSpecularColor(intercept, self.cameraPosition)
+                                    specularLightColor = [specularLightColor[i] + specColor[i] for i in range(3)]
 
                         lightColor = [ambientLightColor[i] + diffuseLightColor[i] + specularLightColor[i]
                                       for i in range(3)]
