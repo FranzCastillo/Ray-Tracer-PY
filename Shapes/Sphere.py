@@ -1,4 +1,4 @@
-import numpy as np
+import MyNumPy as np
 from Shapes.Shape import Shape
 from Shapes.Intercept import Intercept
 
@@ -10,7 +10,7 @@ class Sphere(Shape):
 
     def intersect(self, origin, direction):
         L = np.subtract(self.position, origin)
-        lengthL = np.linalg.norm(L)
+        lengthL = np.linalg_norm(L)
         tca = np.dot(L, direction)
         d = (lengthL ** 2 - tca ** 2) ** 0.5
 
@@ -27,9 +27,9 @@ class Sphere(Shape):
         if t0 < 0:
             return None
 
-        point = np.add(origin, np.multiply(t0, direction))
+        point = np.add(origin, np.multiplyVectorScalar(direction, t0))
         normal = np.subtract(point, self.position)
-        normal = normal / np.linalg.norm(normal)
+        normal = np.normalize(normal)
 
         return Intercept(distance=t0,
                          point=point,

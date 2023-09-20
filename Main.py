@@ -29,65 +29,65 @@ rayTracer.scene.append(
     Sphere(position=(0, 1.1, -5), radius=0.5, material=Material.snow())
 )
 
-# BUTTONS
-rayTracer.scene.append(
-    Sphere(position=(0, -1.15, -4), radius=0.17, material=Material.coalBody())
-)
-rayTracer.scene.append(
-    Sphere(position=(0, -0.55, -4.44), radius=0.13, material=Material.coalBody())
-)
-rayTracer.scene.append(
-    Sphere(position=(0, 0.11, -4.2), radius=0.11, material=Material.coalBody())
-)
-
-# MOUTH
-mouthRadius = 0.042
-topMouth = [0.24, 0.85]
-bottomMouth = [0.09, 0.75]
-depthMouth = -4.6
-
-rayTracer.scene.append(
-    Sphere(position=(-topMouth[0], topMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
-)
-rayTracer.scene.append(
-    Sphere(position=(-bottomMouth[0], bottomMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
-)
-rayTracer.scene.append(
-    Sphere(position=(bottomMouth[0], bottomMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
-)
-rayTracer.scene.append(
-    Sphere(position=(topMouth[0], topMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
-)
-
-# NOSE
-rayTracer.scene.append(
-    Sphere(position=(0, 0.94, -4.5), radius=0.11, material=Material.carrot())
-)
-
-# EYES
-eyePosition = [0.145, 1.11]
-eyeRadius = 0.05
-eyeDepth = -4.55
-irisPosition = [0.144, 1.12]
-irisRadius = 0.025
-irisDepth = -4.52
-
-# WHITE PART
-rayTracer.scene.append(
-    Sphere(position=(-eyePosition[0], eyePosition[1] + 0.03, eyeDepth), radius=eyeRadius, material=Material.whiteEye())
-)
-rayTracer.scene.append(
-    Sphere(position=(eyePosition[0], eyePosition[1], eyeDepth), radius=eyeRadius, material=Material.whiteEye())
-)
-
-# IRIS
-rayTracer.scene.append(
-    Sphere(position=(-irisPosition[0], irisPosition[1] + 0.03, irisDepth), radius=irisRadius, material=Material.coalEye())
-)
-rayTracer.scene.append(
-    Sphere(position=(irisPosition[0], irisPosition[1], irisDepth), radius=irisRadius, material=Material.coalEye())
-)
-
+# # BUTTONS
+# rayTracer.scene.append(
+#     Sphere(position=(0, -1.15, -4), radius=0.17, material=Material.coalBody())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(0, -0.55, -4.44), radius=0.13, material=Material.coalBody())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(0, 0.11, -4.2), radius=0.11, material=Material.coalBody())
+# )
+#
+# # MOUTH
+# mouthRadius = 0.042
+# topMouth = [0.24, 0.85]
+# bottomMouth = [0.09, 0.75]
+# depthMouth = -4.6
+#
+# rayTracer.scene.append(
+#     Sphere(position=(-topMouth[0], topMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(-bottomMouth[0], bottomMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(bottomMouth[0], bottomMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(topMouth[0], topMouth[1], depthMouth), radius=mouthRadius, material=Material.coalMouth())
+# )
+#
+# # NOSE
+# rayTracer.scene.append(
+#     Sphere(position=(0, 0.94, -4.5), radius=0.11, material=Material.carrot())
+# )
+#
+# # EYES
+# eyePosition = [0.145, 1.11]
+# eyeRadius = 0.05
+# eyeDepth = -4.55
+# irisPosition = [0.144, 1.12]
+# irisRadius = 0.025
+# irisDepth = -4.52
+#
+# # WHITE PART
+# rayTracer.scene.append(
+#     Sphere(position=(-eyePosition[0], eyePosition[1] + 0.03, eyeDepth), radius=eyeRadius, material=Material.whiteEye())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(eyePosition[0], eyePosition[1], eyeDepth), radius=eyeRadius, material=Material.whiteEye())
+# )
+#
+# # IRIS
+# rayTracer.scene.append(
+#     Sphere(position=(-irisPosition[0], irisPosition[1] + 0.03, irisDepth), radius=irisRadius, material=Material.coalEye())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(irisPosition[0], irisPosition[1], irisDepth), radius=irisRadius, material=Material.coalEye())
+# )
+#
 rayTracer.lights.append(
     AmbientLight(intensity=0.8)
 )
