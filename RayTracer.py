@@ -1,6 +1,7 @@
 from math import tan, pi
 
 import numpy as np
+import pygame
 
 
 class RayTracer(object):
@@ -123,3 +124,4 @@ class RayTracer(object):
                         finalColor = [min(1, i) for i in finalColor]
 
                         self.rtPoint(x, y, finalColor)
+        pygame.display.flip()
