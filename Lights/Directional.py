@@ -1,11 +1,7 @@
 import Lights.Light as Light
 import numpy as np
 
-
-def reflect(normal, direction):
-    reflectValue = (2 * np.dot(normal, direction) * normal - direction)
-    return reflectValue / np.linalg.norm(reflectValue)
-
+from Lights.Light import reflect
 
 class Directional(Light.Light):
     def __init__(self, direction=(0, 1, 0), intensity=1, color=(1, 1, 1)):

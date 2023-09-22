@@ -1,6 +1,7 @@
 import numpy as np
 from Shapes.Shape import Shape
 from Shapes.Intercept import Intercept
+from math import tan, pi, atan2, acos
 
 
 class Sphere(Shape):
@@ -31,7 +32,11 @@ class Sphere(Shape):
         normal = np.subtract(point, self.position)
         normal = normal / np.linalg.norm(normal)
 
+        u = 0.5 + (atan2(normal[2], normal[0]) / (2 * pi))
+        v = (acos(normal[1]) / pi)
+
         return Intercept(distance=t0,
                          point=point,
                          normal=normal,
-                         obj=self)
+                         obj=self,
+                         textureCoordinates=(u, v))

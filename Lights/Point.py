@@ -1,7 +1,7 @@
 import Lights.Light as Light
 import numpy as np
 
-from Lights.Directional import reflect
+from Lights.Light import reflect
 
 
 class Point(Light.Light):

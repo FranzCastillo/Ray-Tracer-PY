@@ -1,9 +1,31 @@
+import pygame
+
+OPAQUE = 0
+REFLECTIVE = 1
+TRANSPARENT = 2
+
+
 class Material:
-    def __init__(self, diffuse=(1, 1, 1), spec=1.0, ks=0.0):
+    def __init__(self, diffuse=(1, 1, 1), spec=1.0, ks=0.0, type=OPAQUE, texture=None):
         self.diffuse = diffuse
         self.spec = spec
         self.ks = ks
+        self.type = type
+        self.texture = texture
 
+
+def mirror():
+    return Material(diffuse=(0.8, 0.8, 0.8), spec=64, ks=0.2, type=REFLECTIVE)
+
+
+def blueMirror():
+    return Material(diffuse=(0.2, 0.2, 0.8), spec=32, ks=0.15, type=REFLECTIVE)
+
+def earth():
+    return Material(texture=pygame.image.load("Textures/earth.jpeg"))
+
+def checkered():
+    return Material(spec=64, ks=0.2, type=REFLECTIVE, texture=pygame.image.load("Textures/checkered.jpg"))
 
 def brick():
     return Material(diffuse=(1, 0.3, 0.2), spec=8, ks=0.01)
