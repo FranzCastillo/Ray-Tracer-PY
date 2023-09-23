@@ -16,21 +16,21 @@ screen = pygame.display.set_mode((width, height), pygame.DOUBLEBUF | pygame.HWAC
 screen.set_alpha(None)
 
 rayTracer = RayTracer(screen)
-# rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
+rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
 rayTracer.rtClearColor(0.25, 0.25, 0.25)
 rayTracer.rtColor(1, 1, 1)
 
 rayTracer.scene.append(
-    Sphere(position=(1, 1, -5), radius=0.5, material=Material.grass())
+    Sphere(position=(0, -1.5, -6), radius=1, material=Material.earth())
 )
 rayTracer.scene.append(
-    Sphere(position=(0, 0, -7), radius=2, material=Material.checkered())
+    Sphere(position=(0, 1.5, -6), radius=1, material=Material.moon())
 )
 rayTracer.scene.append(
-    Sphere(position=(0.5, -1, -5), radius=0.3, material=Material.water())
+    Sphere(position=(-2, 0, -6), radius=1, material=Material.mirror())
 )
 rayTracer.scene.append(
-    Sphere(position=(-1.5, -1, -5), radius=0.5, material=Material.earth())
+    Sphere(position=(2, 0, -6), radius=1, material=Material.disco())
 )
 
 rayTracer.lights.append(

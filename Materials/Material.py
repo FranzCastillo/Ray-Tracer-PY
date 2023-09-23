@@ -21,11 +21,22 @@ def mirror():
 def blueMirror():
     return Material(diffuse=(0.2, 0.2, 0.8), spec=32, ks=0.15, type=REFLECTIVE)
 
+
+def disco():
+    return Material(diffuse=(0.8, 0.8, 0.8), spec=32, ks=0.15, type=REFLECTIVE, texture=pygame.image.load("Textures/disco.jpg"))
+
+
 def earth():
     return Material(texture=pygame.image.load("Textures/earth.jpeg"))
 
+
+def moon():
+    return Material(texture=pygame.image.load("Textures/moon.jpg"))
+
+
 def checkered():
     return Material(spec=64, ks=0.2, type=REFLECTIVE, texture=pygame.image.load("Textures/checkered.jpg"))
+
 
 def brick():
     return Material(diffuse=(1, 0.3, 0.2), spec=8, ks=0.01)
