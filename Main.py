@@ -7,31 +7,18 @@ from Lights.Point import Point as PointLight
 from RayTracer import RayTracer
 import Materials.Material as Material
 
-width = 212
-height = 212
+width = 512
+height = 512
 
 pygame.init()
 
-screen = pygame.display.set_mode((width, height), pygame.DOUBLEBUF | pygame.HWACCEL | pygame.HWSURFACE)
+screen = pygame.display.set_mode((width, height), pygame.DOUBLEBUF | pygame.HWACCEL | pygame.HWSURFACE | pygame.SCALED)
 screen.set_alpha(None)
 
 rayTracer = RayTracer(screen)
 rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
 rayTracer.rtClearColor(0.25, 0.25, 0.25)
 rayTracer.rtColor(1, 1, 1)
-
-# rayTracer.scene.append(
-#     Sphere(position=(1, 1, -5), radius=0.5, material=Material.grass())
-# )
-# rayTracer.scene.append(
-#     Sphere(position=(0, 0, -7), radius=2, material=Material.checkered())
-# )
-# rayTracer.scene.append(
-#     Sphere(position=(0.5, -1, -5), radius=0.3, material=Material.water())
-# )
-# rayTracer.scene.append(
-#     Sphere(position=(-1.5, -1, -5), radius=0.5, material=Material.earth())
-# )
 
 rayTracer.scene.append(
     Sphere(position=(0, -1.5, -6), radius=1, material=Material.earth())
@@ -44,6 +31,12 @@ rayTracer.scene.append(
 )
 rayTracer.scene.append(
     Sphere(position=(2, 0, -6), radius=1, material=Material.disco())
+)
+rayTracer.scene.append(
+    Sphere(position=(-0.3, 0, -3), radius=0.3, material=Material.glass())
+)
+rayTracer.scene.append(
+    Sphere(position=(0.3, 0, -3), radius=0.3, material=Material.diamond())
 )
 
 rayTracer.lights.append(

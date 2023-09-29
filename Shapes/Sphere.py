@@ -1,4 +1,5 @@
-import numpy as np
+# import numpy as np
+import MyNumPy as np
 from Shapes.Shape import Shape
 from Shapes.Intercept import Intercept
 from math import tan, pi, atan2, acos
@@ -11,7 +12,7 @@ class Sphere(Shape):
 
     def intersect(self, origin, direction):
         L = np.subtract(self.position, origin)
-        lengthL = np.linalg.norm(L)
+        lengthL = np.linalg_norm(L)
         tca = np.dot(L, direction)
         d = (lengthL ** 2 - tca ** 2) ** 0.5
 
@@ -28,9 +29,9 @@ class Sphere(Shape):
         if t0 < 0:
             return None
 
-        point = np.add(origin, np.multiply(t0, direction))
+        point = np.add(origin, np.multiplyVectorScalar(direction, t0))
         normal = np.subtract(point, self.position)
-        normal = normal / np.linalg.norm(normal)
+        normal = np.normalize(normal)
 
         u = 0.5 + (atan2(normal[2], normal[0]) / (2 * pi))
         v = (acos(normal[1]) / pi)

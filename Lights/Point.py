@@ -1,6 +1,6 @@
 import Lights.Light as Light
-import numpy as np
-
+# import numpy as np
+import MyNumPy as np
 from Lights.Light import reflect
 
 
@@ -11,8 +11,8 @@ class Point(Light.Light):
 
     def getDiffuseColor(self, intercept):
         direction = np.subtract(self.position, intercept.point)
-        radius = np.linalg.norm(direction)
-        direction = direction / radius
+        radius = np.linalg_norm(direction)
+        direction = np.divideVectorScalar(direction, radius)
 
         intensity = np.dot(intercept.normal, direction) * self.intensity
         intensity *= 1 - intercept.obj.material.ks
@@ -25,13 +25,13 @@ class Point(Light.Light):
 
     def getSpecularColor(self, intercept, viewPosition):
         direction = np.subtract(self.position, intercept.point)
-        radius = np.linalg.norm(direction)
-        direction = direction / radius
+        radius = np.linalg_norm(direction)
+        direction = np.divideVectorScalar(direction, radius)
 
         reflectDirection = reflect(intercept.normal, direction)
 
         viewDirection = np.subtract(viewPosition, intercept.point)
-        viewDirection = viewDirection / np.linalg.norm(viewDirection)
+        viewDirection = np.normalize(viewDirection)
 
         intensity = max(0, min(1, np.dot(reflectDirection, viewDirection))) ** intercept.obj.material.spec
         intensity *= self.intensity
