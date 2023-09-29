@@ -7,8 +7,8 @@ from Lights.Point import Point as PointLight
 from RayTracer import RayTracer
 import Materials.Material as Material
 
-width = 512
-height = 512
+width = 563
+height = 563
 
 pygame.init()
 

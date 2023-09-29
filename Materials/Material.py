@@ -18,7 +18,7 @@ def glass():
     return Material(diffuse=(0.8, 0.8, 0.8), spec=64, ks=0.15, ior=1.5, type=TRANSPARENT)
 
 def diamond():
-    return Material(diffuse=(0.8, 0.8, 0.8), spec=128, ks=0.2, ior=2.417, type=TRANSPARENT)
+    return Material(diffuse=(0.6196, 1, 0.9608), spec=128, ks=0.2, ior=2.417, type=TRANSPARENT)
 
 def mirror():
     return Material(diffuse=(0.8, 0.8, 0.8), spec=64, ks=0.2, type=REFLECTIVE)
