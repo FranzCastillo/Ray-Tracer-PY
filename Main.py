@@ -7,8 +7,8 @@ from Lights.Point import Point as PointLight
 from RayTracer import RayTracer
 import Materials.Material as Material
 
-width = 365
-height = 365
+width = 212
+height = 212
 
 pygame.init()
 
@@ -19,6 +19,19 @@ rayTracer = RayTracer(screen)
 rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
 rayTracer.rtClearColor(0.25, 0.25, 0.25)
 rayTracer.rtColor(1, 1, 1)
+
+# rayTracer.scene.append(
+#     Sphere(position=(1, 1, -5), radius=0.5, material=Material.grass())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(0, 0, -7), radius=2, material=Material.checkered())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(0.5, -1, -5), radius=0.3, material=Material.water())
+# )
+# rayTracer.scene.append(
+#     Sphere(position=(-1.5, -1, -5), radius=0.5, material=Material.earth())
+# )
 
 rayTracer.scene.append(
     Sphere(position=(0, -1.5, -6), radius=1, material=Material.earth())

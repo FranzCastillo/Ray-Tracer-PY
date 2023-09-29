@@ -4,7 +4,7 @@ import numpy as np
 import pygame
 
 from Materials.Material import *
-from Lights.Light import reflect
+from Lights.Light import *
 
 MAX_RECURSION_DEPTH = 3
 
@@ -112,6 +112,7 @@ class RayTracer(object):
         diffuseLightColor = [0, 0, 0]
         specularLightColor = [0, 0, 0]
         reflectColor = [0, 0, 0]
+        refractColor = [0, 0, 0]
 
         if intercept.obj.material.type == OPAQUE:
             for light in self.lights:
@@ -153,8 +154,42 @@ class RayTracer(object):
                     if shadowIntersect is None:
                         specColor = light.getSpecularColor(intercept, self.cameraPosition)
                         specularLightColor = [specularLightColor[i] + specColor[i] for i in range(3)]
+        elif intercept.obj.material.type == TRANSPARENT:
+            isOutside = np.dot(rayDirection, intercept.normal) < 0
+            bias = intercept.normal * 0.001
 
-        lightColor = [ambientLightColor[i] + diffuseLightColor[i] + specularLightColor[i] + reflectColor[i]
+            reflectRay = reflect(intercept.normal, np.array(rayDirection) * -1)
+            reflectOrigin = np.add(intercept.point, bias) if isOutside else np.subtract(intercept.point, bias)
+            reflectIntercept = self.rtCastRay(reflectOrigin, reflectRay, None, recursionDepth + 1)
+            reflectColor = self.rtRayColor(reflectIntercept, reflectRay, recursionDepth + 1)
+
+            for light in self.lights:
+                if light.type != "AMBIENT":
+                    shadowDirection = None
+                    if light.type == "DIRECTIONAL":
+                        shadowDirection = [i * -1 for i in light.direction]
+                    if light.type == "POINT":
+                        lightDirection = np.subtract(light.position, intercept.point)
+                        shadowDirection = lightDirection / np.linalg.norm(lightDirection)
+
+                    shadowIntersect = self.rtCastRay(intercept.point, shadowDirection, intercept.obj)
+
+                    if shadowIntersect is None:
+                        specColor = light.getSpecularColor(intercept, self.cameraPosition)
+                        specularLightColor = [specularLightColor[i] + specColor[i] for i in range(3)]
+
+            if not totalInternalReflection(intercept.normal, rayDirection, 1.0, intercept.obj.material.ior):
+                refractRay = refract(intercept.normal, np.array(rayDirection), 1.0, intercept.obj.material.ior)
+                refractOrigin = np.subtract(intercept.point, bias) if isOutside else np.add(intercept.point, bias)
+                refractIntercept = self.rtCastRay(refractOrigin, refractRay, None, recursionDepth + 1)
+                refractColor = self.rtRayColor(refractIntercept, refractRay, recursionDepth + 1)
+
+                kr, kt = fresnel(intercept.normal, rayDirection, 1.0, intercept.obj.material.ior)
+                reflectColor = np.multiply(reflectColor, kr)
+                refractColor = np.multiply(refractColor, kt)
+
+        lightColor = [ambientLightColor[i] + diffuseLightColor[i] +
+                      specularLightColor[i] + reflectColor[i] + refractColor[i]
                       for i in range(3)]
         finalColor = [surfaceColor[i] * lightColor[i] for i in range(3)]
         finalColor = [min(1, i) for i in finalColor]
