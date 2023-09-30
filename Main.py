@@ -7,6 +7,7 @@ from Lights.Point import Point as PointLight
 from RayTracer import RayTracer
 import Materials.Material as Material
 from Shapes.Plane import Plane
+from Shapes.Disk import Disk
 
 width = 212
 height = 212
@@ -35,10 +36,13 @@ rayTracer.rtColor(1, 1, 1)
 # )
 
 rayTracer.scene.append(
-    Sphere(position=(0, 0, -5), radius=1, material=Material.glass())
+    Sphere(position=(0, 0.5, -5), radius=1, material=Material.glass())
 )
 rayTracer.scene.append(
     Plane(position=(0, -5, -5), normal=(0, 1, 0), material=Material.brick())
+)
+rayTracer.scene.append(
+    Disk(position=(0, -1.5, -5), normal=(0, 1, 0), radius=1, material=Material.mirror())
 )
 
 rayTracer.lights.append(
