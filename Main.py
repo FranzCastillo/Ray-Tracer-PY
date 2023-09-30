@@ -6,6 +6,7 @@ from Lights.Directional import Directional as DirectionalLight
 from Lights.Point import Point as PointLight
 from RayTracer import RayTracer
 import Materials.Material as Material
+from Shapes.Plane import Plane
 
 width = 212
 height = 212
@@ -34,13 +35,10 @@ rayTracer.rtColor(1, 1, 1)
 # )
 
 rayTracer.scene.append(
-    Sphere(position=(-1, 0, -5), radius=1, material=Material.glass())
+    Sphere(position=(0, 0, -5), radius=1, material=Material.glass())
 )
 rayTracer.scene.append(
-    Sphere(position=(1, 0, -5), radius=1, material=Material.diamond())
-)
-rayTracer.scene.append(
-    Sphere(position=(0, 1, -8), radius=1, material=Material.brick())
+    Plane(position=(0, -5, -5), normal=(0, 1, 0), material=Material.brick())
 )
 
 rayTracer.lights.append(
