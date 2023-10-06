@@ -6,9 +6,12 @@ from Lights.Directional import Directional as DirectionalLight
 from Lights.Point import Point as PointLight
 from RayTracer import RayTracer
 import Materials.Material as Material
+from Shapes.Plane import Plane
+from Shapes.Disk import Disk
+from Shapes.AABB import AABB
 
-width = 563
-height = 563
+width = 250
+height = 250
 
 pygame.init()
 
@@ -16,38 +19,56 @@ screen = pygame.display.set_mode((width, height), pygame.DOUBLEBUF | pygame.HWAC
 screen.set_alpha(None)
 
 rayTracer = RayTracer(screen)
-rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
-rayTracer.rtClearColor(0.25, 0.25, 0.25)
+# rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
+rayTracer.rtClearColor(0.7373, 0.561, 1)
 rayTracer.rtColor(1, 1, 1)
 
 rayTracer.scene.append(
-    Sphere(position=(0, -1.5, -6), radius=1, material=Material.earth())
+    Plane(position=(0, -2, 0), normal=(0, 1, -0.2), material=Material.floor())
 )
 rayTracer.scene.append(
-    Sphere(position=(0, 1.5, -6), radius=1, material=Material.moon())
+    Plane(position=(0, 5, 0), normal=(0, 1, 0.2), material=Material.ceiling())
 )
 rayTracer.scene.append(
-    Sphere(position=(-2, 0, -6), radius=1, material=Material.mirror())
+    Plane(position=(4, 0, 0), normal=(1, 0, 0.2), material=Material.wall())
 )
 rayTracer.scene.append(
-    Sphere(position=(2, 0, -6), radius=1, material=Material.disco())
+    Plane(position=(-4, 0, 0), normal=(1, 0, -0.2), material=Material.wall())
 )
 rayTracer.scene.append(
-    Sphere(position=(-0.3, 0, -3), radius=0.3, material=Material.glass())
-)
-rayTracer.scene.append(
-    Sphere(position=(0.3, 0, -3), radius=0.3, material=Material.diamond())
+    Plane(position=(0, 0, 5), normal=(0, 0, 1), material=Material.brick())
 )
 
-rayTracer.lights.append(
-    AmbientLight(intensity=0.4)
+
+rayTracer.scene.append(
+    Disk(position=(-2, 0, -5), normal=(1, 0, 0.2), radius=1, material=Material.mirror())
 )
-rayTracer.lights.append(
-    DirectionalLight(direction=(-1, -1, -1), intensity=0.7)
+rayTracer.scene.append(
+    Disk(position=(2, 0, -5), normal=(1, 0, -0.2), radius=1, material=Material.mirror())
 )
-rayTracer.lights.append(
-    PointLight(position=(0, 0, -4.5), intensity=1, color=(1, 0, 1))
+rayTracer.scene.append(
+    Disk(position=(0, 0, -7), normal=(0, 0, 1), radius=1, material=Material.mirror())
 )
+
+rayTracer.scene.append(
+    AABB(position=(-1, 0, -6), size=(1, 1, 1), material=Material.earth())
+)
+rayTracer.scene.append(
+    AABB(position=(1, 0, -6), size=(1, 1, 1), material=Material.moon())
+)
+
+
+
+
+rayTracer.lights.append(
+    AmbientLight(intensity=0.7)
+)
+# rayTracer.lights.append(
+#     DirectionalLight(direction=(-1, -1, -1), intensity=0.7)
+# )
+# rayTracer.lights.append(
+#     PointLight(position=(0, 0, -4.5), intensity=1, color=(1, 0, 1))
+# )
 
 rayTracer.rtClear()
 rayTracer.rtRender()

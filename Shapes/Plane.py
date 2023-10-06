@@ -1,12 +1,13 @@
 from Shapes.Shape import Shape
 from Shapes.Intercept import Intercept
-import numpy as np
+# import numpy as np
+import MyNumPy as np
 
 
 class Plane(Shape):
     def __init__(self, position, normal, material):
         super().__init__(position, material)
-        self.normal = normal / np.linalg.norm(normal)
+        self.normal = np.normalize(normal)
 
     def intersect(self, origin, direction):
         denominator = np.dot(direction, self.normal)
@@ -19,7 +20,7 @@ class Plane(Shape):
         if t < 0:
             return None
 
-        point = np.add(origin, np.multiply(t, direction))
+        point = np.add(origin, np.multiplyVectorScalar(direction, t))
 
         return Intercept(distance=t,
                          point=point,

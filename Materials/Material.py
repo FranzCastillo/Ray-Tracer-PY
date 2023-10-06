@@ -14,6 +14,15 @@ class Material:
         self.type = type
         self.texture = texture
 
+def floor():
+    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=REFLECTIVE)
+
+def wall():
+    return Material(diffuse=(0.7373, 0.561, 1))
+
+def ceiling():
+    return Material(diffuse=(1, 0.561, 1))
+
 def glass():
     return Material(diffuse=(0.8, 0.8, 0.8), spec=64, ks=0.15, ior=1.5, type=TRANSPARENT)
 
