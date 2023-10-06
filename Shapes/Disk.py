@@ -1,6 +1,7 @@
 from Shapes.Plane import Plane
 from Shapes.Intercept import Intercept
-import numpy as np
+# import numpy as np
+import MyNumPy as np
 
 
 class Disk(Plane):
@@ -14,7 +15,7 @@ class Disk(Plane):
         if intercept is None:
             return None
 
-        if np.linalg.norm(np.subtract(intercept.point, self.position)) > self.radius:
+        if np.linalg_norm(np.subtract(intercept.point, self.position)) > self.radius:
             return None
 
         return Intercept(

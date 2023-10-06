@@ -1,5 +1,5 @@
-import numpy as np
-
+# import numpy as np
+import MyNumPy as np
 from Shapes.Intercept import Intercept
 from Shapes.Shape import Shape
 from Shapes.Plane import Plane
