@@ -10,8 +10,8 @@ from Shapes.Plane import Plane
 from Shapes.Disk import Disk
 from Shapes.AABB import AABB
 
-width = 250
-height = 250
+width = 720
+height = 720
 
 pygame.init()
 
@@ -51,10 +51,13 @@ rayTracer.scene.append(
 )
 
 rayTracer.scene.append(
-    AABB(position=(-1, 0, -6), size=(1, 1, 1), material=Material.earth())
+    AABB(position=(-1, 0, -6), size=(1, 1, 1), material=Material.cube1())
 )
 rayTracer.scene.append(
-    AABB(position=(1, 0, -6), size=(1, 1, 1), material=Material.moon())
+    AABB(position=(1, 0, -6), size=(1, 1, 1), material=Material.cube2())
+)
+rayTracer.scene.append(
+    AABB(position=(0, -1.5, -6), size=(1, 1, 1), material=Material.diamond())
 )
 
 

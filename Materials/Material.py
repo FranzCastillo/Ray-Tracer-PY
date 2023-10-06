@@ -14,6 +14,11 @@ class Material:
         self.type = type
         self.texture = texture
 
+def cube1():
+    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=OPAQUE, texture=pygame.image.load("Textures/cube1.png"))
+def cube2():
+    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=OPAQUE, texture=pygame.image.load("Textures/cube2.jpg"))
+
 def floor():
     return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=REFLECTIVE)
 
