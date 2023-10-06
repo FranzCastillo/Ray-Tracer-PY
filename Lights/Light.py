@@ -1,10 +1,14 @@
-import numpy as np
+# import numpy as np
+import MyNumPy as np
 from math import acos, asin, sin, cos
 
 
 def reflect(normal, direction):
-    reflectValue = (2 * np.dot(normal, direction) * normal - direction)
-    return reflectValue / np.linalg.norm(reflectValue)
+    r1 = np.dot(normal, direction)
+    r2 = np.multiplyVectorScalar(normal, r1)
+    r3 = np.multiplyVectorScalar(r2, 2)
+    reflectValue = np.subtractVectorVector(r3, direction)
+    return np.normalize(reflectValue)
 
 
 def totalInternalReflection(incident, normal, n1, n2):
@@ -30,13 +34,16 @@ def refract(normal, incident, n1, n2):
     if c1 < 0:
         c1 = -c1
     else:
-        normal = np.array(normal) * -1
+        normal = np.negateVector(normal)
         n1, n2 = n2, n1
 
     n = n1 / n2
 
-    t = n * (incident + c1 * normal) - normal * (1 - n ** 2 * (1 - c1 ** 2)) ** 0.5
-    return t / np.linalg.norm(t)
+    t0 = np.add(incident, np.multiplyVectorScalar(normal, c1))
+    t1 = np.subtract(np.multiplyVectorScalar(t0, n), normal)
+    t2 = (1 - n ** 2 * (1 - c1 ** 2)) ** 0.5
+    t = np.multiplyVectorScalar(t1, t2)
+    return np.normalize(t)
 
 
 def fresnel(normal, incident, n1, n2):

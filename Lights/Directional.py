@@ -1,12 +1,13 @@
 import Lights.Light as Light
-import numpy as np
+# import numpy as np
+import MyNumPy as np
 
 from Lights.Light import reflect
 
 class Directional(Light.Light):
     def __init__(self, direction=(0, 1, 0), intensity=1, color=(1, 1, 1)):
         super().__init__(intensity, color, "DIRECTIONAL")
-        self.direction = direction / np.linalg.norm(direction)
+        self.direction = np.normalize(direction)
 
     def getDiffuseColor(self, intercept):
         direction = [i * -1 for i in self.direction]
@@ -23,7 +24,7 @@ class Directional(Light.Light):
         reflectDirection = reflect(intercept.normal, direction)
 
         viewDirection = np.subtract(viewPosition, intercept.point)
-        viewDirection = viewDirection / np.linalg.norm(viewDirection)
+        viewDirection = np.normalize(viewDirection)
 
         intensity = max(0, min(1, np.dot(reflectDirection, viewDirection))) ** intercept.obj.material.spec
         intensity *= self.intensity

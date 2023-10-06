@@ -40,3 +40,13 @@ def multiplyVectorVector(vec1, vec2):
 def subtractVectorVector(vec1, vec2):
     """Subtract two vectors."""
     return [x - y for x, y in zip(vec1, vec2)]
+
+
+def negateVector(vec):
+    """Negate a vector."""
+    return [-x for x in vec]
+
+
+def divideVectorScalar(vec, scalar):
+    """Divide a vector by a scalar."""
+    return [x / scalar for x in vec]
