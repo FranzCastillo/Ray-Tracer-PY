@@ -14,25 +14,40 @@ class Material:
         self.type = type
         self.texture = texture
 
+
+def hockeyPuck():
+    return Material(diffuse=(0.3, 0.3, 0.3), spec=128, ks=0.2, type=OPAQUE)
+
+
 def cube1():
-    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=OPAQUE, texture=pygame.image.load("Textures/cube1.png"))
+    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=OPAQUE,
+                    texture=pygame.image.load("Textures/cube1.png"))
+
+
 def cube2():
-    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=OPAQUE, texture=pygame.image.load("Textures/cube2.jpg"))
+    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=OPAQUE,
+                    texture=pygame.image.load("Textures/cube2.jpg"))
+
 
 def floor():
     return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=REFLECTIVE)
 
+
 def wall():
     return Material(diffuse=(0.7373, 0.561, 1))
+
 
 def ceiling():
     return Material(diffuse=(1, 0.561, 1))
 
+
 def glass():
     return Material(diffuse=(0.8, 0.8, 0.8), spec=64, ks=0.15, ior=1.5, type=TRANSPARENT)
 
+
 def diamond():
     return Material(diffuse=(0.6196, 1, 0.9608), spec=128, ks=0.2, ior=2.417, type=TRANSPARENT)
+
 
 def mirror():
     return Material(diffuse=(0.8, 0.8, 0.8), spec=64, ks=0.2, type=REFLECTIVE)
@@ -43,7 +58,8 @@ def blueMirror():
 
 
 def disco():
-    return Material(diffuse=(0.8, 0.8, 0.8), spec=32, ks=0.15, type=REFLECTIVE, texture=pygame.image.load("Textures/disco.jpg"))
+    return Material(diffuse=(0.8, 0.8, 0.8), spec=32, ks=0.15, type=REFLECTIVE,
+                    texture=pygame.image.load("Textures/disco.jpg"))
 
 
 def earth():

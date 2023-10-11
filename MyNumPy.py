@@ -50,3 +50,12 @@ def negateVector(vec):
 def divideVectorScalar(vec, scalar):
     """Divide a vector by a scalar."""
     return [x / scalar for x in vec]
+
+
+def cross(direction, edge2):
+    """Cross product of two vectors."""
+    return [
+        direction[1] * edge2[2] - direction[2] * edge2[1],
+        direction[2] * edge2[0] - direction[0] * edge2[2],
+        direction[0] * edge2[1] - direction[1] * edge2[0],
+    ]
