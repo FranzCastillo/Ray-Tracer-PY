@@ -1,4 +1,5 @@
 import pygame
+import math as Math
 
 from Shapes.Sphere import Sphere
 from Lights.Ambient import Ambient as AmbientLight
@@ -24,54 +25,55 @@ rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
 rayTracer.rtClearColor(0.7373, 0.561, 1)
 rayTracer.rtColor(1, 1, 1)
 
-rayTracer.scene.append(
-    Plane(position=(0, -2, 0), normal=(0, 1, -0.2), material=Material.ceiling())
-)
-rayTracer.scene.append(
-    Plane(position=(0, 5, 0), normal=(0, 1, 0.2), material=Material.floor())
-)
-rayTracer.scene.append(
-    Plane(position=(4, 0, 0), normal=(1, 0, 0.2), material=Material.wall())
-)
-rayTracer.scene.append(
-    Plane(position=(-4, 0, 0), normal=(1, 0, -0.2), material=Material.wall())
-)
-rayTracer.scene.append(
-    Plane(position=(0, 0, 5), normal=(0, 0, 1), material=Material.brick())
-)
+# rayTracer.scene.append(
+#     Plane(position=(0, -2, 0), normal=(0, 1, -0.2), material=Material.ceiling())
+# )
+# rayTracer.scene.append(
+#     Plane(position=(0, 5, 0), normal=(0, 1, 0.2), material=Material.floor())
+# )
+# rayTracer.scene.append(
+#     Plane(position=(4, 0, 0), normal=(1, 0, 0.2), material=Material.wall())
+# )
+# rayTracer.scene.append(
+#     Plane(position=(-4, 0, 0), normal=(1, 0, -0.2), material=Material.wall())
+# )
+# rayTracer.scene.append(
+#     Plane(position=(0, 0, 5), normal=(0, 0, 1), material=Material.brick())
+# )
+#
+# rayTracer.scene.append(
+#     Cylinder(
+#         position=(-2, -1, -7),
+#         radius=1,
+#         height=1,
+#         material=Material.glass()
+#     )
+# )
+#
+# rayTracer.scene.append(
+#     Cylinder(
+#         position=(2, -1, -7),
+#         radius=1,
+#         height=1,
+#         material=Material.glass()
+#     )
+# )
+#
+# rayTracer.scene.append(
+#     Cylinder(
+#         position=(0, 1, -7),
+#         radius=1,
+#         height=0.5,
+#         material=Material.mirror()
+#     )
+# )
 
 rayTracer.scene.append(
     Cylinder(
-        position=(-2, -1, -7),
-        radius=1,
-        height=1,
-        material=Material.glass()
-    )
-)
-
-rayTracer.scene.append(
-    Cylinder(
-        position=(2, -1, -7),
-        radius=1,
-        height=1,
-        material=Material.glass()
-    )
-)
-
-rayTracer.scene.append(
-    Cylinder(
-        position=(0, 1, -7),
-        radius=1,
-        height=0.5,
-        material=Material.mirror()
-    )
-)
-
-rayTracer.scene.append(
-    Cylinder(
-        position=(0, -3.5, -10),
+        position=(0, 0, -10),
         radius=2,
-        height=1,
+        height=15,
+        rotation_z=70 * Math.pi/180,
         material=Material.hockeyPuck()
     )
 )
