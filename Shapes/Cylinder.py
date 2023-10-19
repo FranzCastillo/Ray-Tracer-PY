@@ -3,6 +3,7 @@ from Shapes.Shape import Shape
 from Shapes.Intercept import Intercept
 from math import sqrt, cos, sin
 
+
 class Cylinder(Shape):
     def __init__(self, position, radius, height, material, rotation_z=0.0):
         super().__init__(position, material)

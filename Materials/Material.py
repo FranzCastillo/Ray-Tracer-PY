@@ -15,6 +15,14 @@ class Material:
         self.texture = texture
 
 
+def gold():
+    return Material(diffuse=(0.8314, 0.6863, 0.2157), spec=64, ks=0.15, type=OPAQUE)
+
+
+def marble():
+    return Material(diffuse=(0.8, 0.8, 0.8), spec=64, ks=0.15, type=OPAQUE)
+
+
 def hockeyPuck():
     return Material(diffuse=(0.3, 0.3, 0.3), spec=128, ks=0.2, type=OPAQUE)
 
@@ -30,11 +38,11 @@ def cube2():
 
 
 def floor():
-    return Material(diffuse=(0.7373, 0.561, 1), spec=64, ks=0.15, type=REFLECTIVE)
+    return Material(diffuse=(0.789, 0.328, 0.144), spec=64, ks=0.15, type=REFLECTIVE)
 
 
 def wall():
-    return Material(diffuse=(0.7373, 0.561, 1))
+    return Material(diffuse=(0.3373, 0.3529, 0.2627))
 
 
 def ceiling():

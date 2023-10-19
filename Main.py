@@ -12,8 +12,8 @@ from Shapes.Disk import Disk
 from Shapes.AABB import AABB
 from Shapes.Cylinder import Cylinder
 
-width = 520
-height = 520
+width = 265
+height = 265
 
 pygame.init()
 
@@ -21,72 +21,89 @@ screen = pygame.display.set_mode((width, height), pygame.DOUBLEBUF | pygame.HWAC
 screen.set_alpha(None)
 
 rayTracer = RayTracer(screen)
-rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
-rayTracer.rtClearColor(0.7373, 0.561, 1)
+# rayTracer.environmentMap = pygame.image.load("Textures/map.jpg")
+rayTracer.rtClearColor(0.3373, 0.3529, 0.2627)
 rayTracer.rtColor(1, 1, 1)
 
-# rayTracer.scene.append(
-#     Plane(position=(0, -2, 0), normal=(0, 1, -0.2), material=Material.ceiling())
-# )
-# rayTracer.scene.append(
-#     Plane(position=(0, 5, 0), normal=(0, 1, 0.2), material=Material.floor())
-# )
-# rayTracer.scene.append(
-#     Plane(position=(4, 0, 0), normal=(1, 0, 0.2), material=Material.wall())
-# )
-# rayTracer.scene.append(
-#     Plane(position=(-4, 0, 0), normal=(1, 0, -0.2), material=Material.wall())
-# )
-# rayTracer.scene.append(
-#     Plane(position=(0, 0, 5), normal=(0, 0, 1), material=Material.brick())
-# )
-#
-# rayTracer.scene.append(
-#     Cylinder(
-#         position=(-2, -1, -7),
-#         radius=1,
-#         height=1,
-#         material=Material.glass()
-#     )
-# )
-#
-# rayTracer.scene.append(
-#     Cylinder(
-#         position=(2, -1, -7),
-#         radius=1,
-#         height=1,
-#         material=Material.glass()
-#     )
-# )
-#
+# ROOM
+rayTracer.scene.append(
+    AABB(
+        position=(0, -8, -10),
+        size=(10, 10, 11),
+        material=Material.floor()
+    )
+)
+
+# LEFT POLE
+rayTracer.scene.append(
+    Cylinder(
+        position=(-3, -2.8, -8),
+        radius=0.1,
+        height=2.5,
+        material=Material.gold()
+    )
+)
+rayTracer.scene.append(
+    Cylinder(
+        position=(-3, -2.8, -8),
+        radius=0.2,
+        height=0.2,
+        material=Material.gold()
+    )
+)
+
+# RIGHT POLE
 # rayTracer.scene.append(
 #     Cylinder(
-#         position=(0, 1, -7),
-#         radius=1,
-#         height=0.5,
-#         material=Material.mirror()
+#         position=(3, -2.8, -8),
+#         radius=0.1,
+#         height=2.5,
+#         material=Material.gold()
 #     )
 # )
 
+# PEDESTAL
 rayTracer.scene.append(
-    Cylinder(
-        position=(0, 0, -10),
-        radius=2,
-        height=15,
-        rotation_z=70 * Math.pi/180,
-        material=Material.hockeyPuck()
+    # MIDDLE
+    AABB(
+        position=(0, -1.5, -10),
+        size=(2, 2, 2),
+        material=Material.marble()
     )
 )
+rayTracer.scene.append(
+    # BOTTOM
+    AABB(
+        position=(0, -3, -10),
+        size=(2.5, 1, 2.5),
+        material=Material.marble()
+    )
+)
+rayTracer.scene.append(
+    # TOP
+    AABB(
+        position=(0, -0.2, -10),
+        size=(3, 0.8, 3),
+        material=Material.marble()
+    )
+)
+# rayTracer.lights.append(
+#     PointLight(position=(0, 1, -7), intensity=1, color=(1, 1, 0))
+# )
+# rayTracer.lights.append(
+#     PointLight(position=(-3, 1, -7), intensity=1, color=(1, 1, 0))
+# )
+# rayTracer.lights.append(
+#     PointLight(position=(3, 1, -7), intensity=1, color=(1, 1, 0))
+# )
 
 rayTracer.lights.append(
     AmbientLight(intensity=0.5)
 )
 rayTracer.lights.append(
-    DirectionalLight(direction=(0, -0.2, 1), intensity=1, color=(1, 0, 1))
+    DirectionalLight(direction=(1, -1, -1), intensity=0.1, color=(1, 1, 0))
 )
-# rayTracer.lights.append(
-#     PointLight(position=(0, -3, -9), intensity=1, color=(1, 0, 1))
-# )
+
 
 rayTracer.rtClear()
 rayTracer.rtRender()
