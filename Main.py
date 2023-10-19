@@ -11,6 +11,7 @@ from Shapes.Plane import Plane
 from Shapes.Disk import Disk
 from Shapes.AABB import AABB
 from Shapes.Cylinder import Cylinder
+from Shapes.Pyramid import Pyramid
 
 width = 265
 height = 265
@@ -34,23 +35,32 @@ rayTracer.scene.append(
     )
 )
 
-# LEFT POLE
 rayTracer.scene.append(
-    Cylinder(
-        position=(-3, -2.8, -8),
-        radius=0.1,
-        height=2.5,
-        material=Material.gold()
+    Pyramid(
+        position=(0, 0, -10),
+        base=1,
+        height=1,
+        material=Material.glass()
     )
 )
-rayTracer.scene.append(
-    Cylinder(
-        position=(-3, -2.8, -8),
-        radius=0.2,
-        height=0.2,
-        material=Material.gold()
-    )
-)
+
+# # LEFT POLE
+# rayTracer.scene.append(
+#     Cylinder(
+#         position=(-3, -2.8, -8),
+#         radius=0.1,
+#         height=2.5,
+#         material=Material.gold()
+#     )
+# )
+# rayTracer.scene.append(
+#     Cylinder(
+#         position=(-3, -2.8, -8),
+#         radius=0.2,
+#         height=0.2,
+#         material=Material.gold()
+#     )
+# )
 
 # RIGHT POLE
 # rayTracer.scene.append(
@@ -62,31 +72,31 @@ rayTracer.scene.append(
 #     )
 # )
 
-# PEDESTAL
-rayTracer.scene.append(
-    # MIDDLE
-    AABB(
-        position=(0, -1.5, -10),
-        size=(2, 2, 2),
-        material=Material.marble()
-    )
-)
-rayTracer.scene.append(
-    # BOTTOM
-    AABB(
-        position=(0, -3, -10),
-        size=(2.5, 1, 2.5),
-        material=Material.marble()
-    )
-)
-rayTracer.scene.append(
-    # TOP
-    AABB(
-        position=(0, -0.2, -10),
-        size=(3, 0.8, 3),
-        material=Material.marble()
-    )
-)
+# # PEDESTAL
+# rayTracer.scene.append(
+#     # MIDDLE
+#     AABB(
+#         position=(0, -1.5, -10),
+#         size=(2, 2, 2),
+#         material=Material.marble()
+#     )
+# )
+# rayTracer.scene.append(
+#     # BOTTOM
+#     AABB(
+#         position=(0, -3, -10),
+#         size=(2.5, 1, 2.5),
+#         material=Material.marble()
+#     )
+# )
+# rayTracer.scene.append(
+#     # TOP
+#     AABB(
+#         position=(0, -0.2, -10),
+#         size=(3, 0.8, 3),
+#         material=Material.marble()
+#     )
+# )
 # rayTracer.lights.append(
 #     PointLight(position=(0, 1, -7), intensity=1, color=(1, 1, 0))
 # )
